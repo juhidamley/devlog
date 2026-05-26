@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Color tokens ───────────────────────────────────────────────────────────── */
+:root {
+  --ink: 0 0 255;
+  --canvas: 245 245 240;
+  /* Injected at runtime by next/font — declared here to satisfy static analysis */
+  --font-serif: '';
+  --font-mono: '';
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: 0 255 65;
+    --canvas: 0 0 0;
+  }
+}
+
+/* Hide the system cursor everywhere — replaced by CustomCursor */
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+/* Bounding-box selection handle — 8px square, solid ink */
+.bb-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgb(var(--ink));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Window card entrance */
+@keyframes windowDrop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.window-enter {
+  animation: windowDrop 0.2s ease forwards;
+}
+
+/* TipTap editor content styles */
+.tiptap-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: rgb(var(--ink));
+  opacity: 0.25;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap-editor h1 { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.5rem; font-family: var(--font-serif), serif; }
+.tiptap-editor h2 { font-size: 1.25rem; font-weight: 700; margin: 0.875rem 0 0.4rem; font-family: var(--font-serif), serif; }
+.tiptap-editor h3 { font-size: 1.1rem;  font-weight: 700; margin: 0.75rem 0 0.35rem; font-family: var(--font-serif), serif; }
+.tiptap-editor p  { margin: 0.5rem 0; line-height: 1.7; }
+.tiptap-editor strong { font-weight: 700; }
+.tiptap-editor em     { font-style: italic; }
+.tiptap-editor s      { text-decoration: line-through; }
+.tiptap-editor u      { text-decoration: underline; }
+.tiptap-editor mark   { background: rgb(var(--ink) / 0.15); color: inherit; }
+
+.tiptap-editor a { color: rgb(var(--ink)); text-decoration: underline; }
+
+.tiptap-editor code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85em;
+  background: rgb(var(--ink) / 0.07);
+  border: 1px solid rgb(var(--ink) / 0.2);
+  padding: 0.1em 0.35em;
+}
+
+.tiptap-editor pre {
+  background: rgb(var(--ink) / 0.05);
+  border: 2px solid rgb(var(--ink));
+  padding: 1rem;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+}
+.tiptap-editor pre code { background: none; border: none; padding: 0; }
+
+.tiptap-editor blockquote {
+  border-left: 3px solid rgb(var(--ink));
+  margin: 0.75rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  opacity: 0.7;
+}
+
+.tiptap-editor ul { list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tiptap-editor ol { list-style: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
+.tiptap-editor li { margin: 0.2rem 0; }
+
+.tiptap-editor ul[data-type="taskList"] { list-style: none; padding-left: 0.25rem; }
+.tiptap-editor ul[data-type="taskList"] li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.tiptap-editor ul[data-type="taskList"] li > label { margin-top: 0.15rem; flex-shrink: 0; }
+.tiptap-editor ul[data-type="taskList"] li > div { flex: 1; }
+.tiptap-editor ul[data-type="taskList"] input[type="checkbox"] { accent-color: rgb(var(--ink)); }
+
+.tiptap-editor hr { border: none; border-top: 2px solid rgb(var(--ink)); opacity: 0.3; margin: 1rem 0; }
+
+.tiptap-editor img { max-width: 100%; border: 2px solid rgb(var(--ink)); display: block; margin: 0.75rem 0; }

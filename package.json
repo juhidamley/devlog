@@ -1,0 +1,52 @@
+{
+  "name": "devlog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:generate": "prisma generate",
+    "db:push": "dotenv -e .env.local -- prisma db push",
+    "db:studio": "dotenv -e .env.local -- prisma studio",
+    "db:migrate": "dotenv -e .env.local -- prisma migrate deploy",
+    "db:seed": "dotenv -e .env.local -- tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@tiptap/extension-highlight": "^3.23.5",
+    "@tiptap/extension-image": "^3.23.5",
+    "@tiptap/extension-link": "^3.23.5",
+    "@tiptap/extension-placeholder": "^3.23.5",
+    "@tiptap/extension-task-item": "^3.23.5",
+    "@tiptap/extension-task-list": "^3.23.5",
+    "@tiptap/extension-text-align": "^3.23.5",
+    "@tiptap/extension-typography": "^3.23.5",
+    "@tiptap/extension-underline": "^3.23.5",
+    "@tiptap/pm": "^3.23.5",
+    "@tiptap/react": "^3.23.5",
+    "@tiptap/starter-kit": "^3.23.5",
+    "@vercel/blob": "^2.4.0",
+    "framer-motion": "^12.39.0",
+    "next": "^15.0.0",
+    "next-auth": "beta",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.184.1",
+    "autoprefixer": "^10.4.0",
+    "dotenv-cli": "^11.0.0",
+    "postcss": "^8.4.0",
+    "prisma": "^6.0.0",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.22.3",
+    "typescript": "^5.5.0"
+  }
+}
