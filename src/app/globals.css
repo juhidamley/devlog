@@ -18,11 +18,11 @@
   }
 }
 
-/* Hide the system cursor everywhere — replaced by CustomCursor */
-*,
-*::before,
-*::after {
-  cursor: none !important;
+/* Hide system cursor on pointer devices — replaced by CustomCursor */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
 }
 
 /* Bounding-box selection handle — 8px square, solid ink */

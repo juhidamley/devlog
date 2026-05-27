@@ -20,6 +20,7 @@ const ibmMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "devlog.juhi.studio",
   description: "A dev journal.",
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
