@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["var(--font-serif)", "Georgia", "serif"],
+        serif: ["'Times New Roman'", "Times", "serif"],
         mono: ["var(--font-mono)", "'Courier New'", "monospace"],
       },
       colors: {
@@ -18,7 +18,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;

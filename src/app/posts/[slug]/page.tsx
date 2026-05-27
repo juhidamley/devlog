@@ -53,7 +53,8 @@ export default async function PostPage({ params }: { params: Params }) {
             </h1>
 
             <div
-              className="prose max-w-none text-ink [&_*]:text-ink [&_a]:text-ink [&_a]:underline [&_code]:bg-ink/5 [&_code]:px-1 [&_pre]:bg-ink/5 [&_pre]:p-4 [&_blockquote]:border-l-2 [&_blockquote]:border-ink [&_blockquote]:pl-4 font-mono text-sm leading-relaxed"
+              className="prose max-w-none post-content text-sm leading-relaxed"
+              style={{ fontFamily: "'Times New Roman', Times, serif" }}
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 

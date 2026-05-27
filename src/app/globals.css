@@ -103,3 +103,37 @@
 .tiptap-editor hr { border: none; border-top: 2px solid rgb(var(--ink)); opacity: 0.3; margin: 1rem 0; }
 
 .tiptap-editor img { max-width: 100%; border: 2px solid rgb(var(--ink)); display: block; margin: 0.75rem 0; }
+
+/* ── Published post content ── */
+/* prose colours via CSS vars so ink/canvas theme carries through */
+.post-content {
+  font-family: 'Times New Roman', Times, serif;
+  --tw-prose-body: rgb(var(--ink));
+  --tw-prose-headings: rgb(var(--ink));
+  --tw-prose-links: rgb(var(--ink));
+  --tw-prose-bold: rgb(var(--ink));
+  --tw-prose-counters: rgb(var(--ink));
+  --tw-prose-bullets: rgb(var(--ink));
+  --tw-prose-hr: rgb(var(--ink) / 0.3);
+  --tw-prose-quotes: rgb(var(--ink));
+  --tw-prose-quote-borders: rgb(var(--ink));
+  --tw-prose-captions: rgb(var(--ink) / 0.6);
+  --tw-prose-code: rgb(var(--ink));
+  --tw-prose-pre-code: rgb(var(--ink));
+  --tw-prose-pre-bg: rgb(var(--ink) / 0.05);
+  --tw-prose-th-borders: rgb(var(--ink));
+  --tw-prose-td-borders: rgb(var(--ink) / 0.3);
+}
+
+/* task lists */
+.post-content ul[data-type="taskList"] { list-style: none; padding-left: 0.25rem; }
+.post-content ul[data-type="taskList"] li { display: flex; align-items: flex-start; gap: 0.5rem; }
+.post-content ul[data-type="taskList"] li > label { margin-top: 0.2rem; flex-shrink: 0; }
+.post-content ul[data-type="taskList"] li > div { flex: 1; }
+.post-content ul[data-type="taskList"] input[type="checkbox"] { accent-color: rgb(var(--ink)); }
+
+/* highlight mark */
+.post-content mark { background: rgb(var(--ink) / 0.15); color: inherit; border-radius: 2px; padding: 0 2px; }
+
+/* images */
+.post-content img { max-width: 100%; border: 2px solid rgb(var(--ink)); display: block; margin: 0.75rem 0; }

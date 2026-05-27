@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Playfair_Display, IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import { AnimationShell } from "@/components/AnimationShell";
 import "./globals.css";
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-});
 
 const ibmMono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -25,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${ibmMono.variable} bg-canvas`}>
+    <html lang="en" className={`${ibmMono.variable} bg-canvas`}>
       <body className="min-h-screen text-ink antialiased bg-canvas">
 
         {/* ── Nav ─────────────────────────────────────────────────────────── */}
@@ -66,9 +60,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-5 border-t-2 border-ink bg-canvas"
           style={{ height: 36 }}
         >
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink opacity-70">
-            Made with love
-          </span>
+          <a
+            href="https://juhi.studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink opacity-70 hover:opacity-100 transition-opacity"
+          >
+            juhi.studio
+          </a>
           <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] text-ink opacity-70">
             <span>Juhi Damley</span>
             <span className="opacity-40">|</span>
