@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IBM_Plex_Mono } from "next/font/google";
 import { AnimationShell } from "@/components/AnimationShell";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 
 const ibmMono = IBM_Plex_Mono({
   subsets: ["latin"],

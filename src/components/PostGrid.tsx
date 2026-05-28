@@ -254,11 +254,17 @@ const GRAPH_PAPER = {
 
 export function PostGrid({ posts }: { posts: PostWithProject[] }) {
   const { selectedPost, selectPost } = usePageTransition();
-  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [zMap, setZMap] = useState<Record<string, number>>({});
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const raise = useCallback((id: string) => {
     setZMap((prev) => {
@@ -318,7 +324,7 @@ export function PostGrid({ posts }: { posts: PostWithProject[] }) {
               No posts yet.
             </p>
           </div>
-        ) : mounted && posts.map((post, index) => (
+        ) : isDesktop && posts.map((post, index) => (
           <PostWindowCard
             key={post.id}
             post={post}

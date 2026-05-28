@@ -11,6 +11,8 @@ import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
+import Mathematics from "@tiptap/extension-mathematics";
+import "katex/dist/katex.min.css";
 import { useRef } from "react";
 
 type Props = {
@@ -63,6 +65,7 @@ export function RichTextEditor({ content = "", onChange, placeholder }: Props) {
       TaskList,
       TaskItem.configure({ nested: true }),
       Typography,
+      Mathematics,
       Placeholder.configure({ placeholder: placeholder ?? "Start writing…" }),
     ],
     content,
@@ -132,6 +135,21 @@ export function RichTextEditor({ content = "", onChange, placeholder }: Props) {
         <Btn onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive("strike")} title="Strikethrough"><s>S</s></Btn>
         <Btn onClick={() => editor.chain().focus().toggleHighlight().run()} isActive={editor.isActive("highlight")} title="Highlight">▐</Btn>
         <Btn onClick={() => editor.chain().focus().toggleCode().run()} isActive={editor.isActive("code")} title="Inline code">`_`</Btn>
+        <Btn
+          onClick={() => {
+            const selected = editor.state.doc.cut(
+              editor.state.selection.from,
+              editor.state.selection.to,
+            ).textContent;
+            const latex = window.prompt("LaTeX expression", selected || "");
+            if (latex === null) return;
+            editor.chain().focus().insertContent(`$${latex}$`).run();
+          }}
+          isActive={editor.isActive("math")}
+          title="Inline math ($…$)"
+        >
+          ∑
+        </Btn>
 
         <Divider />
 
