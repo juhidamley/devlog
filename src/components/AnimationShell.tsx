@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { TransitionContext, type SelectedPost, type SelectedProject } from "@/context/TransitionContext";
 import { CustomCursor } from "@/components/CustomCursor";
+import { PostContent } from "@/components/PostContent";
 
 // ── Shared window overlay chrome ──────────────────────────────────────────────
 
@@ -69,9 +70,12 @@ function PostOverlay({ selected, onClose }: { selected: SelectedPost; onClose: (
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
-          className="prose max-w-2xl text-ink [&_*]:text-ink [&_a]:text-ink [&_code]:bg-ink/5 [&_pre]:bg-ink/5 [&_blockquote]:border-ink"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        >
+          <PostContent
+            html={post.content}
+            className="prose max-w-2xl text-ink [&_*]:text-ink [&_a]:text-ink [&_code]:bg-ink/5 [&_pre]:bg-ink/5 [&_blockquote]:border-ink"
+          />
+        </motion.div>
 
         {/* date */}
         <motion.time
