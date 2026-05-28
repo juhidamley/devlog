@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { AnimationShell } from "@/components/AnimationShell";
 import "./globals.css";
 import "katex/dist/katex.min.css";
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
+        <Analytics />
       </body>
     </html>
   );
