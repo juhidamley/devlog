@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { PostContent } from "@/components/PostContent";
 import { processLatexInHtml } from "@/lib/latex";
+import { CommentsSection } from "@/components/CommentsSection";
 
 type Params = Promise<{ slug: string }>;
 
@@ -69,6 +70,8 @@ export default async function PostPage({ params }: { params: Params }) {
               })}
             </time>
           </div>
+
+          <CommentsSection postId={post.id} />
 
           {/* Footer bar */}
           <div className="border-t-2 border-ink px-4 py-3 flex items-center justify-between">

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useCallback, useEffect, type CSSProperties } from "react";
+import { useRouter } from "next/navigation";
 import { motion, useDragControls, useMotionValue } from "framer-motion";
-import { usePageTransition } from "@/context/TransitionContext";
 import { PREVIEW_PATTERNS } from "@/lib/grid-styles";
 import type { PostWithProject } from "@/types/data";
 
@@ -21,7 +21,7 @@ const MOBILE_SNAP = 16;
 const MOBILE_PAD  = 16; // multiple of MOBILE_SNAP — cards land on grid lines
 
 function PostMobileGrid({ posts }: { posts: PostWithProject[] }) {
-  const { selectPost } = usePageTransition();
+  const router = useRouter();
 
   if (posts.length === 0) {
     return (
@@ -46,7 +46,7 @@ function PostMobileGrid({ posts }: { posts: PostWithProject[] }) {
           <motion.div
             key={post.id}
             layoutId={`post-block-${post.id}`}
-            onClick={() => selectPost({ post, styleIndex: 0 })}
+            onClick={() => router.push(`/posts/${post.slug}`)}
             className="relative w-full"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -253,7 +253,7 @@ const GRAPH_PAPER = {
 // ── Canvas ────────────────────────────────────────────────────────────────────
 
 export function PostGrid({ posts }: { posts: PostWithProject[] }) {
-  const { selectedPost, selectPost } = usePageTransition();
+  const router = useRouter();
   const [isDesktop, setIsDesktop] = useState(false);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [zMap, setZMap] = useState<Record<string, number>>({});
@@ -330,10 +330,10 @@ export function PostGrid({ posts }: { posts: PostWithProject[] }) {
             post={post}
             index={index}
             zIndex={zMap[post.id] ?? 10 + index}
-            hidden={hidden.has(post.id) || selectedPost?.post.id === post.id}
+            hidden={hidden.has(post.id)}
             onRaise={() => raise(post.id)}
             onClose={() => setHidden((prev) => new Set(prev).add(post.id))}
-            onOpen={() => selectPost({ post, styleIndex: 0 })}
+            onOpen={() => router.push(`/posts/${post.slug}`)}
           />
         ))}
 

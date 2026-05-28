@@ -13,6 +13,18 @@
     {
       "name": "GBrowser Plugin for JetBrains IDEs | JetBrains Marketplace",
       "url": "https://plugins.jetbrains.com/plugin/14458-gbrowser/versions/stable"
+    },
+    {
+      "name": "devlog.juhi.studio",
+      "url": "http://localhost:3001/"
+    },
+    {
+      "name": "devlog.juhi.studio",
+      "url": "http://localhost:3001/projects"
+    },
+    {
+      "name": "devlog.juhi.studio",
+      "url": "http://localhost:3001/posts/planning-it-out"
     }
   ]
 }]]></component>
