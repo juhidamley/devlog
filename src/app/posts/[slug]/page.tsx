@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { PostContent } from "@/components/PostContent";
 
 type Params = Promise<{ slug: string }>;
 
@@ -52,10 +53,10 @@ export default async function PostPage({ params }: { params: Params }) {
               {post.title}
             </h1>
 
-            <div
+            <PostContent
+              html={post.content}
               className="prose max-w-none post-content text-sm leading-relaxed"
               style={{ fontFamily: "'Times New Roman', Times, serif" }}
-              dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
             <time

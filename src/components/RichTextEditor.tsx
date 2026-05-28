@@ -11,9 +11,62 @@ import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
-import Mathematics from "@tiptap/extension-mathematics";
+import { InlineMath } from "@tiptap/extension-mathematics";
+import { InputRule, mergeAttributes } from "@tiptap/core";
+import katex from "katex";
 import "katex/dist/katex.min.css";
 import { useRef } from "react";
+
+// $$text$$ → inline math rendered at text size  (InlineMath default rule)
+// $text$   → display-mode math rendered at display size  (DisplayMath, also inline node)
+//
+// BlockMath (group:"block") cannot be inserted mid-paragraph; both variants must be
+// inline nodes so ProseMirror accepts tr.replaceWith inside a paragraph.
+const DisplayMath = InlineMath.extend({
+  name: "displayMath",
+
+  parseHTML() {
+    return [{ tag: 'span[data-type="display-math"]' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ["span", mergeAttributes(HTMLAttributes, { "data-type": "display-math" })];
+  },
+
+  addInputRules() {
+    return [
+      new InputRule({
+        // single $…$ — negative look-around prevents matching inside $$…$$
+        find: /(?<!\$)\$([^$\n]+?)\$(?!\$)/,
+        handler: ({ state, range, match }) => {
+          state.tr.replaceWith(
+            range.from,
+            range.to,
+            this.type.create({ latex: match[1] }),
+          );
+        },
+      }),
+    ];
+  },
+
+  addNodeView() {
+    return ({ node }) => {
+      const wrapper = document.createElement("span");
+      wrapper.className = "tiptap-mathematics-render tiptap-mathematics-render--editable";
+      wrapper.dataset.type = "display-math";
+      wrapper.setAttribute("data-latex", node.attrs.latex as string);
+
+      try {
+        katex.render(node.attrs.latex as string, wrapper, {
+          displayMode: true,
+          throwOnError: false,
+        });
+      } catch {}
+
+      return { dom: wrapper };
+    };
+  },
+});
 
 type Props = {
   content?: string;
@@ -65,7 +118,8 @@ export function RichTextEditor({ content = "", onChange, placeholder }: Props) {
       TaskList,
       TaskItem.configure({ nested: true }),
       Typography,
-      Mathematics,
+      InlineMath,
+      DisplayMath,
       Placeholder.configure({ placeholder: placeholder ?? "Start writing…" }),
     ],
     content,
@@ -142,11 +196,11 @@ export function RichTextEditor({ content = "", onChange, placeholder }: Props) {
               editor.state.selection.to,
             ).textContent;
             const latex = window.prompt("LaTeX expression", selected || "");
-            if (latex === null) return;
-            editor.chain().focus().insertContent(`$${latex}$`).run();
+            if (!latex) return;
+            editor.chain().focus().insertInlineMath({ latex }).run();
           }}
-          isActive={editor.isActive("math")}
-          title="Inline math ($…$)"
+          isActive={editor.isActive("inlineMath")}
+          title="Inline math"
         >
           ∑
         </Btn>
